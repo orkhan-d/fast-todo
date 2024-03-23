@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator
 
-from api.auth.crud import get_user_by_email
+from app.auth.crud import get_user_by_email
 
 class LoginSchema(BaseModel):
     email: str

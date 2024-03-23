@@ -1,4 +1,4 @@
-from api.db import Base, intpk, Mapped, mapped_column
+from app.db import Base, intpk, Mapped, mapped_column
 
 class User(Base):
     __tablename__ = 'users'

@@ -2,8 +2,8 @@ from fastapi import APIRouter, Header
 from fastapi.responses import JSONResponse
 from typing import Annotated
 
-from api.auth.crud import add_user, login_user, logout_user
-from api.auth.schemas import LoginSchema, RecoverPasswordSchema, RegisterSchema
+from app.auth.crud import add_user, login_user, logout_user
+from app.auth.schemas import LoginSchema, RecoverPasswordSchema, RegisterSchema
 
 router = APIRouter(prefix='/api/auth')
 

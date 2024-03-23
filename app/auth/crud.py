@@ -1,8 +1,8 @@
 import os
 from fastapi import HTTPException
 from sqlalchemy import and_
-from api.auth.models import User
-from api.db import session
+from app.auth.models import User
+from app.db import session
 import jwt
 
 def get_user_by_email(email: str):
@@ -33,7 +33,7 @@ def login_user(email: str, password: str):
             'id': user.id_,
             'name': user.name,
             'email': user.email,
-        }, os.getenv('JWT_SECRET'), algorithm="HS256")
+        }, os.getenv('JWT_SECRET'), algorithm="HS256") # type: ignore
         user.access_token = token
         session.commit()
 
