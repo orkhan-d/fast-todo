@@ -16,6 +16,3 @@ class RegisterSchema(BaseModel):
         if get_user_by_email(value):
             raise ValueError('Given email already exists!')
         return value
-
-class RecoverPasswordSchema(BaseModel):
-    email: str
