@@ -8,7 +8,7 @@ def update_user_profile(user_id: int, data: dict):
     session.query(Profile).filter(Profile.user_id==user_id).update(data)
     session.commit()
 
-    return True
+    return session.query(Profile).filter(Profile.user_id==user_id).one()
 
 def get_user_profile(user_id: int):
     profile = session.query(Profile).filter(Profile.user_id==user_id).first()

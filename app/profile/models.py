@@ -5,10 +5,8 @@ class Profile(Base):
     __tablename__ = 'profiles'
     
     user_id: Mapped[intpk]
-
-    address: Mapped[str | None] = mapped_column()
-    balance: Mapped[int | None] = mapped_column()
     
-    card_number: Mapped[str | None] = mapped_column()
-    card_date: Mapped[date | None] = mapped_column()
-    card_secret: Mapped[int | None] = mapped_column()
+    name: Mapped[str | None] = mapped_column()
+    surname: Mapped[str | None] = mapped_column()
+    patronymic: Mapped[str | None] = mapped_column()
+    phone: Mapped[str | None] = mapped_column()

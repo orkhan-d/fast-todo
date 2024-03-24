@@ -1,36 +1,42 @@
-from datetime import date
-from pydantic import BaseModel, validator, model_validator
+import re
+from pydantic import BaseModel, validator
+from fastapi import Form
 
+import inspect
+from typing import Type
+
+def as_form(cls: Type[BaseModel]):
+    new_parameters = []
+
+    for field_name, model_field in cls.model_fields.items():
+
+        new_parameters.append(
+            inspect.Parameter(
+                model_field.alias,
+                inspect.Parameter.POSITIONAL_ONLY,
+                default=Form(...) if model_field.is_required else Form(model_field.default)
+            )
+        )
+
+    async def as_form_func(**data):
+        return cls(**data)
+
+    sig = inspect.signature(as_form_func)
+    sig = sig.replace(parameters=new_parameters)
+    as_form_func.__signature__ = sig  # type: ignore
+    setattr(cls, 'as_form', as_form_func)
+    return cls
+
+@as_form
 class UpdateProfileSchema(BaseModel):
-    address: str | None = None
-    balance: int | None = None
-    card_number: str | None = None
-    card_date: str | None = None
-    card_secret: int | None = None
+    name: str | None = Form(alias='name')
+    surname: str | None = Form(alias='surname')
+    patronymic: str | None = Form(alias='patronymic')
+    phone: str | None = Form(alias='phone')
 
-    @validator('card_number')
+    @validator('phone')
     @classmethod
-    def validate_card_number(cls, value: str):
-        if len(value)!=16:
-            raise ValueError('Wrong card number format. It should be 16 symbols length!')
-        return value
-    
-    @validator('card_date')
-    @classmethod
-    def validate_card_date(cls, value: str):
-        try:
-            day, month, year = list(map(int, value.split('.')))
-            _ = date(year, month, day)
-        except:
-            raise ValueError('Wrong card date format. Right is DD.MM.YYYY')
-
-    @model_validator(mode='before')
-    @classmethod
-    def validate_card_data(cls, values: dict[str, str | int]):
-        if len([
-            v for v in
-            [values.get('card_number'), values.get('card_date'), values.get('card_secret')]
-            if v is not None
-        ]) not in [0, 3]:
-            raise ValueError('Enter either none card data or all data')
-        return values
+    def validate_phone(cls, value: str):
+        if re.match(r'\+79\d{9}', value):
+            return value
+        raise ValueError('Wrong phone number! It should be like +79876543210')

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop-App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Shop-App</a>
+            <a href="/">Товары</a>
+            <div class="flex-row">
+                {% if request.cookies.get('access-token') %}
+                    <a href="/profile">Профиль</a>
+                    <a href="/auth/logout">Выход</a>
+                {% else %}
+                    <a href="/auth/login">Войти</a>
+                    <a href="/auth/register">Регистрация</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% for error in errors %}
+        <div class="error">{{ error }}</div>
+        {% endfor %}
+        <div class="center">
+            <h3>Ваш профиль</h3>
+            <form action="/profile" method="post">
+                <label for="email">
+                    <span>ФИО:</span>
+                    <div class="grid-col">
+                        <input name="name" value="{{ profile.name or '' }}" id="name" type="text">
+                        <input name="surname" value="{{ profile.surname or '' }}" id="surname" type="text">
+                        <input name="patronymic" value="{{ profile.patronymic or '' }}" id="patronymic" type="text">
+                    </div>
+                </label>
+                <label for="phone">
+                    <span>Телефон:</span>
+                    <input name="phone" value="{{ profile.phone or '' }}" id="phone" type="text">
+                </label>
+                <input class="btn" type="submit" value="Изменить">
+            </form>
+        </div>
+    </main>
+    <footer>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta earum odit quaerat minus minima autem nobis qui nostrum. Quae dolore reiciendis delectus, vel quisquam architecto corporis esse ad accusantium cupiditate!
+    </footer>
+</body>
+</html>
