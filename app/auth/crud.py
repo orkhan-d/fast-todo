@@ -16,11 +16,33 @@ def add_user(name: str, email: str, password: str):
 def get_user_by_id(id_: int):
     return session.query(User).filter(User.id_==id_).first()
 
-def logout_user(access_token: str):
+def get_user_by_access_token(access_token: str | None):
+    if not access_token:
+        raise HTTPException(401, {
+            'message': 'Authorization error'
+        })
+    
+    access_token = access_token.replace('Bearer', '').strip()
     user = session.query(User).filter(User.access_token==access_token).first()
-    if user:
-        user.access_token = None
-        session.commit()
+    if not user:
+        raise HTTPException(401, {
+            'message': 'Authorization error'
+        })
+    return user
+
+def logout_user(access_token: str):
+    if not access_token:
+        raise HTTPException(401, {
+            'message': 'Authorization error'
+        })
+    user = session.query(User).filter(User.access_token==access_token).first()
+    if not user:
+        raise HTTPException(401, {
+            'message': 'Authorization error'
+        })
+    user.access_token = None
+    session.commit()
+    
 
 def login_user(email: str, password: str):
     user = session.query(User).filter(and_(
