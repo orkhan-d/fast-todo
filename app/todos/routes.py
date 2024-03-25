@@ -20,7 +20,12 @@ async def add_todo_route(request: Request):
     form_data = await request.form()
     form: AddTodoSchema = AddTodoSchema(**dict(form_data.items()))
 
-    add_todo(get_user_by_access_token(token).id_, form.text)
+    user = get_user_by_access_token(token)
+    if not user:
+        response = RedirectResponse('/auth/login', 302)
+        response.delete_cookie('access-token')
+        return response
+    add_todo(user.id_, form.text)
 
     return RedirectResponse('/', 302)
 
@@ -29,7 +34,12 @@ async def add_todo_route(request: Request):
 async def todos_page(request: Request):
     token = request.cookies.get('access-token', None)
     if token:
-        todos = get_todos(get_user_by_access_token(token).id_)
+        user = get_user_by_access_token(token)
+        if not user:
+            response = RedirectResponse('/auth/login', 302)
+            response.delete_cookie('access-token')
+            return response
+        todos = get_todos(user.id_)
         return templates.TemplateResponse('main.html', context={
             'request': request,
             'todos': todos
@@ -41,7 +51,12 @@ async def todos_delete(request: Request, todo_id: int):
     token = request.cookies.get('access-token', None)
     if token:
         delete_todo(todo_id)
-        todos = get_todos(get_user_by_access_token(token).id_)
+        user = get_user_by_access_token(token)
+        if not user:
+            response = RedirectResponse('/auth/login', 302)
+            response.delete_cookie('access-token')
+            return response
+        todos = get_todos(user.id_)
         return templates.TemplateResponse('main.html', context={
             'request': request,
             'todos': todos
@@ -53,7 +68,12 @@ async def todos_toggle(request: Request, todo_id: int):
     token = request.cookies.get('access-token', None)
     if token:
         toggle_todo(todo_id)
-        todos = get_todos(get_user_by_access_token(token).id_)
+        user = get_user_by_access_token(token)
+        if not user:
+            response = RedirectResponse('/auth/login', 302)
+            response.delete_cookie('access-token')
+            return response
+        todos = get_todos(user.id_)
         return templates.TemplateResponse('main.html', context={
             'request': request,
             'todos': todos

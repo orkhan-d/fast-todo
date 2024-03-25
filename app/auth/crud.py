@@ -18,7 +18,7 @@ def get_user_by_id(id_: int):
 
 def get_user_by_access_token(access_token: str):
     access_token = access_token.replace('Bearer', '').strip()
-    user = session.query(User).filter(User.access_token==access_token).one()
+    user = session.query(User).filter(User.access_token==access_token).first()
     return user
 
 def logout_user(access_token: str | None):

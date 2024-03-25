@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=app
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d app" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - default
+
+  app:
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db:db
+    build: .
+    container_name: app
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DB_ADDRESS=${DB_ADDRESS}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - default
+
+networks:
+  default:

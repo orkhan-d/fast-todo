@@ -23,14 +23,25 @@ async def update_profile(request: Request):
     try:
         form = UpdateProfileSchema(**dict(form.items()))
     except ValidationError as e:
-        profile = get_user_profile(get_user_by_access_token(token).id_)
+        user = get_user_by_access_token(token)
+        if not user:
+            response = RedirectResponse('/auth/login', 302)
+            response.delete_cookie('access-token')
+            return response
+        profile = get_user_profile(user.id_)
         return templates.TemplateResponse('profile.html', context={
             'request': request,
             'profile': profile,
             'errors': [err.get('msg') for err in e.errors()]
         })
     
-    profile = update_user_profile(get_user_by_access_token(token).id_, form.model_dump())
+    user = get_user_by_access_token(token)
+    user = get_user_by_access_token(token)
+    if not user:
+        response = RedirectResponse('/auth/login', 302)
+        response.delete_cookie('access-token')
+        return response
+    profile = update_user_profile(user.id_, form.model_dump())
     return templates.TemplateResponse('profile.html', context={
         'request': request,
         'profile': profile,
@@ -40,7 +51,12 @@ async def update_profile(request: Request):
 async def get_profile(request: Request):
     token = request.cookies.get('access-token', None)
     if token:
-        profile = get_user_profile(get_user_by_access_token(token).id_)
+        user = get_user_by_access_token(token)
+        if not user:
+            response = RedirectResponse('/auth/login', 302)
+            response.delete_cookie('access-token')
+            return response
+        profile = get_user_profile(user.id_)
         return templates.TemplateResponse('profile.html', context={
             'request': request,
             'profile': profile,
