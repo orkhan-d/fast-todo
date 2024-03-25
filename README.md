@@ -8,7 +8,7 @@ How to start:
 2. change data in docker-compose.yml app (like DB user, etc.)
 3. Just run
 ```bash
-docker compose build && dcoker compose up -d
+docker compose build && docker compose up -d
 ```
 to start and 
 ```bash
