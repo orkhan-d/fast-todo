@@ -3,30 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop-App</title>
+    <title>Todos-App</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
-        <nav>
-            <a href="/">Shop-App</a>
-            <a href="/">Товары</a>
-            <div class="flex-row">
-                {% if request.cookies.get('access-token') %}
-                    <a href="/profile">Профиль</a>
-                    <a href="/auth/logout">Выход</a>
-                {% else %}
-                    <a href="/auth/login">Войти</a>
-                    <a href="/auth/register">Регистрация</a>
-                {% endif %}
-            </div>
-        </nav>
+        <div class="wrapper">
+            <nav>
+                <a href="/">Todos-App</a>
+                <a href="/">Задачи</a>
+                <div class="flex-row">
+                    {% if request.cookies.get('access-token') %}
+                        <a href="/profile">Профиль</a>
+                        <a href="/auth/logout">Выход</a>
+                    {% else %}
+                        <a href="/auth/login">Войти</a>
+                        <a href="/auth/register">Регистрация</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
     </header>
     <main>
-        {% for error in errors %}
+        <div class="wrapper">
+            {% for error in errors %}
         <div class="error">{{ error }}</div>
         {% endfor %}
-        <div class="center">
+        <div class="center card">
+            <h3>Вход</h3>
             <form action="/auth/login" method="post">
                 <label for="email">
                     <span>E-mail:</span>
@@ -39,9 +43,13 @@
                 <input class="btn" type="submit" value="Войти">
             </form>
         </div>
+        </div>
     </main>
     <footer>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta earum odit quaerat minus minima autem nobis qui nostrum. Quae dolore reiciendis delectus, vel quisquam architecto corporis esse ad accusantium cupiditate!
+        <div class="wrapper flex-row">
+            <p>© Copyright</p>
+            <a href="https://instagram.com/0rkhan.d">0rkhan.d</a>
+        </div>
     </footer>
 </body>
 </html>

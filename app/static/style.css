@@ -7,17 +7,40 @@
     color: #000;
 }
 
-.btn, input[type="submit"] {
-    padding: 10px 15px;
-    border-radius: 106px;
-    background: #64a3eb;
+input[type="submit"] {
+    padding: 5px;
+    border-radius: 5px;
+    background: #5860ff;
     border: none;
     color: #fff;
     font-weight: bold;
     font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 5px;
+    border-radius: 5px;
+    background: #5860ff;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.del-btn {
+    padding: 5px;
+    border-radius: 7px;
+    border: none;
+    background: red;
+    color: white;
+    font-weight: 600;
 }
 
 body {
+    background: rgb(242, 242, 242);
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
@@ -32,9 +55,23 @@ nav {
     padding: 10px;
 }
 
-main {
-    flex: 1;
+main, main .wrapper {
+    padding: 10px 0;
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
     height: 100%;
+}
+
+.wrapper {
+    max-width: 1360px;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+}
+
+header, footer {
+    height: fit-content;
 }
 
 .flex-row {
@@ -47,27 +84,47 @@ main {
 label {
     width: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
     gap: 10px;
+}
+
+label span:not(.top) {
+    margin: auto;
+}
+
+label span.top {
+    padding-top: 6px;
+    padding-left: 0;
+    margin: 0;
 }
 
 input {
     padding: 6px 10px;
     border-radius: 8px;
-    border: 1px solid black;
+    border: none;
 }
 
 .center {
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background: rgb(145, 149, 255);
+    border-radius: 20px;
+    border: none;
+}
+
 form {
     width: fit-content;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -80,3 +137,72 @@ form {
     grid-template-columns: 1fr;
     gap: 10px;
 }
+
+.todos {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.todo {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.todo div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.todo input {
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    transform: scale(1.5);
+    padding: 10px;
+}
+
+.todo input * {
+    color: #fff;
+}
+
+.todo > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo p, .todo b {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+header {
+    background: rgb(108, 108, 255);
+    padding: 10px 0;
+}
+header * {
+    color: #fff;
+}
+
+footer {
+    background: #000;
+    padding: 10px;
+}
+
+footer * {
+    color: #fff;
+}
+

@@ -1,7 +1,7 @@
 import os
 from typing import Annotated
 from uuid import uuid4
-from sqlalchemy import BIGINT, create_engine, String
+from sqlalchemy import BIGINT, create_engine, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, scoped_session, DeclarativeBase, mapped_column, Mapped
 
 engine = create_engine(os.getenv('DB_ADDRESS')) # type: ignore

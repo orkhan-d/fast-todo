@@ -3,3 +3,4 @@
 
 .python-version
 migrations/versions/*
+pyrightconfig.json

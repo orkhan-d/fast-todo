@@ -30,17 +30,13 @@
         <div class="error">{{ error }}</div>
         {% endfor %}
         <div class="center card">
-            <h3>Регистрация</h3>
-            <form action="/auth/register" method="post">
-                <label for="email">
-                    <span>E-mail:</span>
-                    <input name="email" id="email" type="email">
+            <h3>Добавьте задачу</h3>
+            <form action="/todos/add" method="post">
+                <label for="text">
+                    <span>Задача</span>
+                    <input name="text" id="text" type="text">
                 </label>
-                <label for="password">
-                    <span>Пароль:</span>
-                    <input name="password" id="password" type="password">
-                </label>
-                <input class="btn" type="submit" value="Войти">
+                <input class="btn" type="submit" value="Создать">
             </form>
         </div>
         </div>

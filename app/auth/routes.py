@@ -20,8 +20,8 @@ async def login_page(request: Request):
 async def login(request: Request, form: LoginSchema = Depends(LoginSchema.as_form)):
     res = login_user(**form.model_dump())
     if res:
-        response = templates.TemplateResponse(
-            request, 'login.html'
+        response = RedirectResponse(
+            '/', 302
         )
         response.set_cookie('access-token', res.access_token)
     else:
