@@ -8,8 +8,10 @@ import jwt
 def get_user_by_email(email: str):
     return session.query(User).filter(User.email==email).first()
 
-def add_user(name: str, email: str, password: str):
-    user = User(name=name, email=email, password=password)
+def add_user(email: str, password: str):
+    if get_user_by_email(email):
+        raise Exception('E-mail уже зарегистрирован!')
+    user = User(email=email, password=password)
     session.add(user)
     session.commit()
 

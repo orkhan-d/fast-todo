@@ -40,9 +40,3 @@ class LoginSchema(BaseModel):
 class RegisterSchema(BaseModel):
     email: str = Form(alias='email')
     password: str = Form(alias='password')
-
-    @validator('email')
-    def check_email_exists(cls, value: str):
-        if get_user_by_email(value):
-            raise ValueError('Given email already exists!')
-        return value

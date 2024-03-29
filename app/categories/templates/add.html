@@ -12,6 +12,7 @@
             <nav>
                 <a href="/">Todos-App</a>
                 <a href="/">Задачи</a>
+                <a href="/categories">Категории</a>
                 <div class="flex-row">
                     {% if request.cookies.get('access-token') %}
                         <a href="/profile">Профиль</a>
@@ -30,21 +31,13 @@
         <div class="error">{{ error }}</div>
         {% endfor %}
         <div class="center card">
-            <h3>Ваш профиль</h3>
-            <form action="/profile" method="post">
-                <label for="email">
-                    <span class="top">ФИО:</span>
-                    <div class="grid-col">
-                        <input name="name" value="{{ profile.name or '' }}" id="name" type="text">
-                        <input name="surname" value="{{ profile.surname or '' }}" id="surname" type="text">
-                        <input name="patronymic" value="{{ profile.patronymic or '' }}" id="patronymic" type="text">
-                    </div>
+            <h3>Добавьте категорию</h3>
+            <form action="/categories/add" method="post">
+                <label for="text">
+                    <span>Категория</span>
+                    <input name="name" id="name" type="text">
                 </label>
-                <label for="phone">
-                    <span>Телефон:</span>
-                    <input name="phone" value="{{ profile.phone or '' }}" id="phone" type="text">
-                </label>
-                <input class="btn" type="submit" value="Изменить">
+                <input class="btn" type="submit" value="Создать">
             </form>
         </div>
         </div>

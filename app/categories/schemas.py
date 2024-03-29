@@ -28,15 +28,5 @@ def as_form(cls: Type[BaseModel]):
     return cls
 
 @as_form
-class UpdateProfileSchema(BaseModel):
-    name: str | None = Form(alias='name')
-    surname: str | None = Form(alias='surname')
-    patronymic: str | None = Form(alias='patronymic')
-    phone: str | None = Form(alias='phone')
-
-    @validator('phone')
-    @classmethod
-    def validate_phone(cls, value: str):
-        if re.match(r'\+79\d{9}', value):
-            return value
-        raise ValueError('Wrong phone number! It should be like +79876543210')
+class AddCategorySchema(BaseModel):
+    name: str = Form(alias='name')

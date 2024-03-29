@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos-App</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <header>
         <div class="wrapper">
             <nav>
                 <a href="/">Todos-App</a>
                 <a href="/">Задачи</a>
+                <a href="/categories">Категории</a>
                 <div class="flex-row">
                     {% if request.cookies.get('access-token') %}
-                        <a href="/profile">Профиль</a>
-                        <a href="/auth/logout">Выход</a>
+                    <a href="/profile">Профиль</a>
+                    <a href="/auth/logout">Выход</a>
                     {% else %}
-                        <a href="/auth/login">Войти</a>
-                        <a href="/auth/register">Регистрация</a>
+                    <a href="/auth/login">Войти</a>
+                    <a href="/auth/register">Регистрация</a>
                     {% endif %}
                 </div>
             </nav>
@@ -27,18 +30,25 @@
     <main>
         <div class="wrapper">
             {% for error in errors %}
-        <div class="error">{{ error }}</div>
-        {% endfor %}
-        <div class="center card">
-            <h3>Добавьте задачу</h3>
-            <form action="/todos/add" method="post">
-                <label for="text">
-                    <span>Задача</span>
-                    <input name="text" id="text" type="text">
-                </label>
-                <input class="btn" type="submit" value="Создать">
-            </form>
-        </div>
+            <div class="error">{{ error }}</div>
+            {% endfor %}
+            <div class="center card">
+                <h3>Добавьте задачу</h3>
+                <form action="/todos/add" method="post">
+                    <label for="text">
+                        <span>Задача</span>
+                        <input name="text" id="text" type="text" required>
+                    </label>
+                    <label for="category_id">
+                        <select name="category_id" id="category_id" required>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</div>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <input class="btn" type="submit" value="Создать">
+                </form>
+            </div>
         </div>
     </main>
     <footer>
@@ -48,4 +58,5 @@
         </div>
     </footer>
 </body>
+
 </html>

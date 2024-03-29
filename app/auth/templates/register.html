@@ -12,6 +12,7 @@
             <nav>
                 <a href="/">Todos-App</a>
                 <a href="/">Задачи</a>
+                <a href="/categories">Категории</a>
                 <div class="flex-row">
                     {% if request.cookies.get('access-token') %}
                         <a href="/profile">Профиль</a>
@@ -34,11 +35,11 @@
             <form action="/auth/register" method="post">
                 <label for="email">
                     <span>E-mail:</span>
-                    <input name="email" id="email" type="email">
+                    <input name="email" id="email" type="email" required>
                 </label>
                 <label for="password">
                     <span>Пароль:</span>
-                    <input name="password" id="password" type="password">
+                    <input name="password" id="password" type="password" required>
                 </label>
                 <input class="btn" type="submit" value="Войти">
             </form>

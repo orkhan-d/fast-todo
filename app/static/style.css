@@ -66,6 +66,7 @@ main, main .wrapper {
 .wrapper {
     max-width: 1360px;
     margin: 0 auto;
+    padding: 0 20px;
     height: 100%;
     width: 100%;
 }
@@ -206,3 +207,10 @@ footer * {
     color: #fff;
 }
 
+.error {
+    width: 100%;
+    padding: 1rem;
+    background: rgb(255, 73, 73);
+    border: 1px solid red;
+    border-radius: 10px;
+}

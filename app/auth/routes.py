@@ -49,9 +49,18 @@ async def register_page(request: Request):
 
 @router.post('/register')
 async def register(request: Request, form: RegisterSchema = Depends(RegisterSchema.as_form)):
-    add_user(**form.model_dump())
-    res = login_user(form.email, form.password)
 
-    response = JSONResponse(res.as_dict(), 201)
-    response.set_cookie('access-token', res.access_token)
+    try:
+        res = add_user(form.email, form.password)
+        response = RedirectResponse(
+            '/', 302
+        )
+        response.set_cookie('access-token', res.access_token)
+    except Exception as e:
+        response = templates.TemplateResponse(
+            request, 'register.html', {
+                'errors': [str(e)]
+            }
+        )
+
     return response
