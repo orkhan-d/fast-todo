@@ -1,5 +1,4 @@
 import os
-from fastapi import HTTPException
 from sqlalchemy import and_
 from app.auth.models import User
 from app.db import session

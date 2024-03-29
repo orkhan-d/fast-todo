@@ -9,6 +9,7 @@ from typing import Type
 from fastapi import Form
 from pydantic import BaseModel
 
+# helper function (for forms)
 def as_form(cls: Type[BaseModel]):
     new_parameters = []
 
@@ -31,6 +32,7 @@ def as_form(cls: Type[BaseModel]):
     setattr(cls, 'as_form', as_form_func)
     return cls
 
+# data schemas
 @as_form
 class LoginSchema(BaseModel):
     email: str = Form(alias='email')

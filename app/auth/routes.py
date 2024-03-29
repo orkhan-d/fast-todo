@@ -10,6 +10,7 @@ from app.auth.schemas import LoginSchema, RegisterSchema
 templates = Jinja2Templates(os.path.join('app', 'auth', 'templates'))
 router = APIRouter(prefix='/auth')
 
+# defining some routes and their functional
 @router.get('/login')
 async def login_page(request: Request):
     return templates.TemplateResponse(
@@ -49,7 +50,6 @@ async def register_page(request: Request):
 
 @router.post('/register')
 async def register(request: Request, form: RegisterSchema = Depends(RegisterSchema.as_form)):
-
     try:
         res = add_user(form.email, form.password)
         response = RedirectResponse(
